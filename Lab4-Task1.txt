@@ -1,0 +1,54 @@
+
+
+35?- house = house.
+true.
+Reason: Unification succeeds because both sides are identical atoms.
+--------------------------------------------------
+
+36?- house = abc.
+false.
+Reason: Unification fails because the two atoms are different constants.
+--------------------------------------------------
+
+37?- edge(a,b) = edge(C,b).
+C = a.
+Reason: Both sides are structures with the same functor (edge) and the same number of arguments (arity 2). Unification succeeds by instantiating the variable C to the atom a.
+--------------------------------------------------
+
+38?- edge(a,d) = edge(C,B).
+C = a,
+B = d.
+Reason: Unification succeeds by instantiating the variable C to a and the variable B to d.
+--------------------------------------------------
+
+39?- edge(C,B) = edge(a,d).
+C = a,
+B = d.
+Reason: Unification succeeds by instantiating the variable C to a and the variable B to d.
+--------------------------------------------------
+
+40?- edge(A,f(g,h)) = edge(a,B).
+A = a,
+B = f(g, h).
+Reason: Unification succeeds. Variable A is instantiated to the atom a, and variable B is instantiated to the entire structure f(g,h).
+--------------------------------------------------
+
+41?- edge(A,A) = edge(b,c).
+false.
+Reason: Unification fails because of the shared variable rule. The variable A appears twice on the left, meaning both arguments must be identical. A cannot hold both b and c at the same time.
+--------------------------------------------------
+
+42?- edge(A,A) = edge(b,b).
+A = b.
+Reason: Unification succeeds. The shared variable A is instantiated to b, which correctly matches the right side where both arguments are b.
+--------------------------------------------------
+
+43?- A = B, B = f.
+A = B, B = f.
+Reason: These are independent unifications separated by a comma (AND). Variable A is linked to variable B, and B is instantiated to f. Therefore, both A and B hold the value f.
+--------------------------------------------------
+
+44?- A = B, B = f, A = e.
+false.
+Reason: Unification fails due to a logical contradiction. First, A and B are linked (A = B). Then B is instantiated to f, which forces A to also be f. The final goal attempts to unify A = e (which evaluates to f = e), and this fails because f and e are different constants.
+==================================================
